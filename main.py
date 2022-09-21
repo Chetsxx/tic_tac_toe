@@ -17,32 +17,34 @@ class GUI:
         self.dig2 = []
         self.running = True
         self.count = 0
+        self.widget()
 
-        self.one = Button(master, text="", width=25, height=10, command=lambda: self.mark(self.one))
+    def widget(self):
+        self.one = Button(self.master, text="", width=25, height=10, command=lambda: self.mark(self.one))
         self.one.grid(row=0, column=0)
 
-        self.two = Button(master, text="", width=25, height=10, command=lambda: self.mark(self.two))
+        self.two = Button(self.master, text="", width=25, height=10, command=lambda: self.mark(self.two))
         self.two.grid(row=0, column=1)
 
-        self.three = Button(master, text="", width=25, height=10, command=lambda: self.mark(self.three))
+        self.three = Button(self.master, text="", width=25, height=10, command=lambda: self.mark(self.three))
         self.three.grid(row=0, column=3)
 
-        self.four = Button(master, text="", width=25, height=10, command=lambda: self.mark(self.four))
+        self.four = Button(self.master, text="", width=25, height=10, command=lambda: self.mark(self.four))
         self.four.grid(row=1, column=0)
 
-        self.five = Button(master, text="", width=25, height=10, command=lambda: self.mark(self.five))
+        self.five = Button(self.master, text="", width=25, height=10, command=lambda: self.mark(self.five))
         self.five.grid(row=1, column=1)
 
-        self.six = Button(master, text="", width=25, height=10, command=lambda: self.mark(self.six))
+        self.six = Button(self.master, text="", width=25, height=10, command=lambda: self.mark(self.six))
         self.six.grid(row=1, column=3)
 
-        self.seven = Button(master, text="", width=25, height=10, command=lambda: self.mark(self.seven))
+        self.seven = Button(self.master, text="", width=25, height=10, command=lambda: self.mark(self.seven))
         self.seven.grid(row=3, column=0)
 
-        self.eight = Button(master, text="", width=25, height=10, command=lambda: self.mark(self.eight))
+        self.eight = Button(self.master, text="", width=25, height=10, command=lambda: self.mark(self.eight))
         self.eight.grid(row=3, column=1)
 
-        self.nine = Button(master, text="", width=25, height=10, command=lambda: self.mark(self.nine))
+        self.nine = Button(self.master, text="", width=25, height=10, command=lambda: self.mark(self.nine))
         self.nine.grid(row=3, column=3)
 
     def mark(self, b):
@@ -79,7 +81,13 @@ class GUI:
             self.dig2.append(b["text"])
 
         self.winner()
-        self.stop()
+
+        if self.count == 9:
+            messagebox.showinfo("Tic Tac Toe", "It is a Tie")
+            self.running = False
+            self.restart()
+
+        self.restart()
 
     def winner(self):
         all = [self.row1, self.row2, self.row3, self.col1, self.col2, self.col3, self.dig1, self.dig2]
@@ -88,13 +96,24 @@ class GUI:
             if len(line) == 3:
                 if line.count(line[0]) == len(line):
                     messagebox.showinfo("Tic Tac Toe", "You Won")
+                    self.running = False
 
-
-    def stop(self):
+    def restart(self):
         if self.running == False:
-            buttons = [self.one, self.two, self.three, self.four, self.five, self.six, self.seven, self.eight, self.nine]
-            for b in buttons:
-                b.config(state="disabled")
+            self.player_1 = True
+            self.row1 = []
+            self.row2 = []
+            self.row3 = []
+            self.col1 = []
+            self.col2 = []
+            self.col3 = []
+            self.dig1 = []
+            self.dig2 = []
+            self.running = True
+            self.count = 0
+            self.widget()
+
+
 
 
 root = Tk()
