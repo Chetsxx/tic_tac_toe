@@ -95,7 +95,10 @@ class GUI:
         for line in all:
             if len(line) == 3:
                 if line.count(line[0]) == len(line):
-                    messagebox.showinfo("Tic Tac Toe", "You Won")
+                    if self.player_1 == True:
+                        messagebox.showinfo("Tic Tac Toe", "Player 2 Won")
+                    else:
+                        messagebox.showinfo("Tic Tac Toe", "Player 1 Won")
                     self.running = False
 
     def restart(self):
